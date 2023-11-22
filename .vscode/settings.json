@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "wiringpi.h": "c",
+        "resource.h": "c",
+        "stdio.h": "c",
+        "errno.h": "c",
+        "stdint.h": "c"
     }
 }

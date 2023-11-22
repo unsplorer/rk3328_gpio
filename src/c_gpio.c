@@ -29,7 +29,6 @@
 #define PAGE_SIZE (4 * 1024)
 #define BLOCK_SIZE (4 * 1024)
 
-static volatile uint32_t *pio_map;
 static volatile uint32_t *gpio_map;
 
 // void short_wait(void)

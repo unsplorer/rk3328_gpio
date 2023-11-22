@@ -1,7 +1,18 @@
-dht22: *.c
-		g++ -fpermissive -Wno-write-strings -o dht22 *.c
+CC = g++
+CFLAGS = -Wall -Wno-write-strings -I./include
 
-# install: dht22
-# 		sudo cp dht22 /usr/local/bin/
-# 		sudo chown root /usr/local/bin/dht22
-# 		sudo chmod u+s /usr/local/bin/dht22
+SRC_DIR = ./src
+OBJ_DIR = ./build
+
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SOURCES))
+
+dht22: $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR) dht22

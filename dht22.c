@@ -10,6 +10,7 @@
 #define MAX_TIMINGS	  86
 
 int DHT_PIN = 7;
+int gpio_bank = 3;
 
 int read_dht_data(float *h, float *t)
 {
@@ -147,7 +148,7 @@ int main(int argc, char *argv[])
     usage(argv[0]);
   }
 
-  if (wiringPiSetup()) {
+  if (wiringPiSetup(gpio_bank)) {
     fprintf(stderr, "Failed to configure GPIO\n");
     usage(argv[0]);
   }

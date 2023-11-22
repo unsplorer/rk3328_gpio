@@ -5,10 +5,10 @@
 
 static uint64_t epochMilli, epochMicro;
 
-int wiringPiSetup()
+int wiringPiSetup(int gpio_bank)
 {
   initialiseEpoch();
-  return setup();
+  return setup(gpio_bank);
 }
 
 int digitalRead(int gpio)

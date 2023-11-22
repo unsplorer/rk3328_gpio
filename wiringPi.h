@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <time.h>
 
-int wiringPiSetup();
+int wiringPiSetup(int gpio_bank);
 int digitalRead(int gpio);
 void digitalWrite(int gpio, int value);
 void pinMode(int gpio, int direction);

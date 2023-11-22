@@ -29,8 +29,8 @@ SOFTWARE.
 #include "c_gpio.h"
 
 
-#define RK3328_PERI_BASE_DEFAULT   0x00000000 
-#define GPIO_BASE_OFFSET           0xFF240000
+#define GPIO_BASE_OFFSET           0xFF210000
+#define GPIO_ADDRESS_WIDTH         0x00010000
 #define GPIO_SWPORTA_DR            0x0000
 #define GPIO_SWPORTA_DDR           0x0004
 #define GPIO_INTEN                 0x0030
@@ -94,7 +94,7 @@ static volatile uint32_t *gpio_map;
 //     }
 // }
 
-int setup(void)
+int setup(int gpio_bank)
 {
     int mem_fd;
     uint8_t *gpio_mem;
@@ -112,7 +112,7 @@ int setup(void)
         gpio_mem += PAGE_SIZE - ((uint32_t)gpio_mem % PAGE_SIZE);
 
     // Calculate GPIO base address
-    gpio_base = RK3328_PERI_BASE_DEFAULT + GPIO_BASE_OFFSET;
+    gpio_base = GPIO_BASE_OFFSET + (gpio_bank * GPIO_ADDRESS_WIDTH);
 
     // Map GPIO memory to user space
     gpio_map = (uint32_t *)mmap((void *)gpio_mem, BLOCK_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED, mem_fd, gpio_base);

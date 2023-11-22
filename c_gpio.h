@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-int setup(void);
+int setup(int gpio_bank);
 void setup_gpio(int gpio, int direction, int pud);
 int gpio_function(int gpio);
 void output_gpio(int gpio, int value);

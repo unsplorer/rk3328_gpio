@@ -46,40 +46,6 @@ SOFTWARE.
 
 #define PAGE_SIZE  (4*1024)
 #define BLOCK_SIZE (4*1024)
-#define MAP_SIZE        (4096*2)
-#define MAP_MASK        (MAP_SIZE - 1)
-
-typedef struct sunxi_gpio {
-    unsigned int CFG[4];
-    unsigned int DAT;
-    unsigned int DRV[2];
-    unsigned int PULL[2];
-} sunxi_gpio_t;
-
-/* gpio interrupt control */
-typedef struct sunxi_gpio_int {
-    unsigned int CFG[3];
-    unsigned int CTL;
-    unsigned int STA;
-    unsigned int DEB;
-} sunxi_gpio_int_t;
-
-typedef struct sunxi_gpio_reg {
-    struct sunxi_gpio gpio_bank[9];
-    unsigned char res[0xbc];
-    struct sunxi_gpio_int gpio_int;
-} sunxi_gpio_reg_t;
-
-#define GPIO_BANK(pin)  ((pin) >> 5)
-#define GPIO_NUM(pin)   ((pin) & 0x1F)
-
-#define GPIO_CFG_INDEX(pin)     (((pin) & 0x1F) >> 3)
-#define GPIO_CFG_OFFSET(pin)    ((((pin) & 0x1F) & 0x7) << 2)
-
-#define GPIO_PUL_INDEX(pin)     (((pin) & 0x1F )>> 4)
-#define GPIO_PUL_OFFSET(pin)    (((pin) & 0x0F) << 1)
-
-int pinea64_found = 0;
 
 static volatile uint32_t *pio_map;
 static volatile uint32_t *gpio_map;
@@ -175,17 +141,6 @@ void setup_gpio(int gpio, int direction, int pud)
     }
   
 }
-
-
-// int gpio_function(int gpio)
-// {
-//     int offset = FSEL_OFFSET + (gpio/10);
-//     int shift = (gpio%10)*3;
-//     int value = *(gpio_map+offset);
-//     value >>= shift;
-//     value &= 7;
-//     return value; // 0=input, 1=output, 4=alt0
-//   }
 
 
 void output_gpio(int gpio, int value)

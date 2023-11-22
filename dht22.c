@@ -9,7 +9,7 @@
 
 #define MAX_TIMINGS	  86
 
-int DHT_PIN = 0;
+int DHT_PIN = 7;
 
 int read_dht_data(float *h, float *t)
 {
@@ -31,7 +31,7 @@ int read_dht_data(float *h, float *t)
     int state;
     unsigned int current;
 
-    while (true) {
+    while (1) {
       state = digitalRead(DHT_PIN);
       current = micros();
       if (current - lasttime > 200) {
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
   int retry = 2;
   int whattoshow = 0;
 
-  while (true) {
+  while (1) {
     switch (getopt(argc, argv, "d:r:p:s:")) {
       case -1:
       goto done;

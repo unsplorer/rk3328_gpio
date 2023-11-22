@@ -51,11 +51,11 @@ int setup(int gpio_bank) {
     return SETUP_MMAP_FAIL;
 
   // Allocate memory for GPIO block and align to page size
-  if ((gpio_mem = malloc(BLOCK_SIZE + (PAGE_SIZE - 1))) == NULL)
+  if ((gpio_mem = (uint8_t*)malloc(BLOCK_SIZE + (PAGE_SIZE - 1))) == NULL)
     return SETUP_MALLOC_FAIL;
 
-  if ((uint32_t)gpio_mem % PAGE_SIZE)
-    gpio_mem += PAGE_SIZE - ((uint32_t)gpio_mem % PAGE_SIZE);
+  if ((uintptr_t)gpio_mem % PAGE_SIZE)
+    gpio_mem += PAGE_SIZE - ((uintptr_t)gpio_mem % PAGE_SIZE);
 
   // Calculate GPIO base address
   gpio_base = GPIO_BASE_OFFSET + (gpio_bank * GPIO_ADDRESS_WIDTH);
@@ -65,7 +65,7 @@ int setup(int gpio_bank) {
       (uint32_t *)mmap((void *)gpio_mem, BLOCK_SIZE, PROT_READ | PROT_WRITE,
                        MAP_SHARED | MAP_FIXED, mem_fd, gpio_base);
 
-  if ((uint32_t)gpio_map < 0)
+  if ((uintptr_t)gpio_map < 0)
     return SETUP_MMAP_FAIL;
 
   return SETUP_OK;

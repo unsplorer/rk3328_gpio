@@ -59,12 +59,12 @@ int read_dht_data(float *h, float *t)
   finish:
 
   if (j < 40) {
-    fprintf(stderr, "Not enough bits: %d\n", j);
+    // fprintf(stderr, "Not enough bits: %d\n", j);
     return -1;
   }
 
   if (data[4] != ((data[0] + data[1] + data[2] + data[3]) & 0xFF)) {
-    fprintf(stderr, "Invalid CRC\n");
+    // fprintf(stderr, "Invalid CRC\n");
     return -2;
   }
 

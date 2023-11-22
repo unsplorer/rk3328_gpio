@@ -6,39 +6,35 @@
 #include <string.h>
 #include <sys/mman.h>
 
+/*TODO
+  struct for individual pins, so multiple can be open at once
+  only map the addresses of that pin*/ 
 // Addresses
-#define GPIO_BASE_OFFSET 0xFF210000
-#define GPIO_ADDRESS_WIDTH 0x00010000
-#define GPIO_SWPORTA_DR 0x0000
-#define GPIO_SWPORTA_DDR 0x0004
-#define GPIO_INTEN 0x0030
-#define GPIO_INTMASK 0x0034
-#define GPIO_INTTYPE_LEVEL 0x0038
-#define GPIO_INT_POLARITY 0x003C
-#define GPIO_INT_STATUS 0x0040
-#define GPIO_INT_RAWSTATUS 0x0044
-#define GPIO_DEBOUNCE 0x0048
-#define GPIO_PORTA_EOI 0x004C
-#define GPIO_EXT_PORTA 0x0050
-#define GPIO_LS_SYNC 0x0060
+#define GPIO_BASE_OFFSET          0xFF210000    
+#define GPIO_ADDRESS_WIDTH        0x00010000    // 64K
+#define GPIO_SWPORTA_DR           0x0000        // Port A data register 
+#define GPIO_SWPORTA_DDR          0x0004        // Port A data direction register
+#define GPIO_INTEN                0x0030        // Interrupt enable register
+#define GPIO_INTMASK              0x0034        // Interrupt mask register
+#define GPIO_INTTYPE_LEVEL        0x0038        // Interrupt level register
+#define GPIO_INT_POLARITY         0x003C        // Interrupt polarity register
+#define GPIO_INT_STATUS           0x0040        // Interrupt status of port A
+#define GPIO_INT_RAWSTATUS        0x0044        // Raw interrupt status of port A
+#define GPIO_DEBOUNCE             0x0048        // Debounce enable register
+#define GPIO_PORTA_EOI            0x004C        // Port A clean interrupt register
+#define GPIO_EXT_PORTA            0x0050        // Port A external port register
+#define GPIO_LS_SYNC              0x0060        // Level_sensitive synchronization enable register
 
-// Define constants for edge types
+// edge types for GPIO_LS_SYNC
 #define LEVEL_SENSITIVE 0
 #define EDGE_SENSITIVE 1
+
 
 #define PAGE_SIZE (4 * 1024)
 #define BLOCK_SIZE (4 * 1024)
 
 static volatile uint32_t *gpio_map;
 
-// void short_wait(void)
-// {
-//     int i;
-
-//     for (i=0; i<150; i++) {    // wait 150 cycles
-//         asm volatile("nop");
-//     }
-// }
 
 int setup(int gpio_bank) {
   int mem_fd;
@@ -71,7 +67,6 @@ int setup(int gpio_bank) {
 }
 
 void setup_gpio_interrupt(int gpio, int edge_type, int polarity) {
-  // Assuming you've set up gpio_map using mmap
   // Configure the GPIO pin as an interrupt source
   int bit_position = gpio % 32;
 
@@ -140,11 +135,7 @@ void set_low_event(int gpio, int enable) {}
 void set_pullupdn(int gpio, int pud) {}
 
 void setup_gpio(int gpio, int direction, int pud) {
-  // Assuming GPIO_SWPORTA_DDR bit for the GPIO pin
   int bit_position = gpio % 32;
-
-  // Set pull-up/down for the GPIO pin
-  // set_pullupdn(gpio, pud);
 
   // Update the data direction register based on the specified direction
   if (direction == OUTPUT) {
@@ -157,7 +148,6 @@ void setup_gpio(int gpio, int direction, int pud) {
 }
 
 void output_gpio(int gpio, int value) {
-  // Assuming the corresponding GPIO_SWPORTA_DR bit for the GPIO pin
   int bit_position = gpio % 32;
 
   // Set the corresponding bit in the SWPORTA_DDR register to configure the pin
@@ -173,7 +163,6 @@ void output_gpio(int gpio, int value) {
 }
 
 int input_gpio(int gpio) {
-  // Assuming the corresponding GPIO_EXT_PORTA bit for the GPIO pin
   int bit_position = gpio % 32;
 
   // Read the value from the GPIO_EXT_PORTA register

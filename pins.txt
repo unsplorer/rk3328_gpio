@@ -1,0 +1,31 @@
+NAME            phy pin.    default purpose                 TESTED GOOD for GPIO?
+
+GPIO0_A0 -      13          general GPIO                    NO
+
+GPIO1_A0        33          SDCard
+GPIO1_A1        35          SDCard
+GPIO1_A2        37          SDCard
+GPIO1_A3        40          SDCard
+GPIO1_A4        37          SDCard
+GPIO1_A5        36          SDCard
+GPIO1_A6        32          SDCard
+GPIO1_D4        7           general GPIO (CLK32KOUT_M1)     NO
+
+GPIO2_A0        8           UART_TX
+GPIO2_A1        10          UART_RX
+GPIO2_A3        12          general GPIO                    NO
+GPIO2_A4        27          i2c1_SDA                        NO
+GPIO2_A5        28          i2c1_SCL                        NO
+GPIO2_B4        26          SPI                             NO
+GPIO2_D0        5           i2c0_SCL
+GPIO2_D1        3           i2c0_SDA
+
+GPIO3_A0        23          SPI-clk                         
+GPIO3_A1        19          SPI-tx                          NO
+GPIO3_A2        21          SPI-rx                          NO
+GPIO3_A3        12          general GPIO                    NO
+GPIO3_A4        15          general GPIO                    YES
+GPIO3_A5        16          general GPIO                    YES
+GPIO3_A6        18          general GPIO                    YES
+GPIO3_A7        22          general GPIO                    YES
+GPIO3_B0        24          SPI                             NO

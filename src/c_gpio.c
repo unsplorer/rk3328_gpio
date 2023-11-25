@@ -10,20 +10,72 @@
   struct for individual pins, so multiple can be open at once
   only map the addresses of that pin*/ 
 // Addresses
-#define GPIO_BASE_OFFSET          0xFF210000    
-#define GPIO_ADDRESS_WIDTH        0x00010000    // 64K
-#define GPIO_SWPORTA_DR           0x0000        // Port A data register 
-#define GPIO_SWPORTA_DDR          0x0004        // Port A data direction register
-#define GPIO_INTEN                0x0030        // Interrupt enable register
-#define GPIO_INTMASK              0x0034        // Interrupt mask register
-#define GPIO_INTTYPE_LEVEL        0x0038        // Interrupt level register
-#define GPIO_INT_POLARITY         0x003C        // Interrupt polarity register
-#define GPIO_INT_STATUS           0x0040        // Interrupt status of port A
-#define GPIO_INT_RAWSTATUS        0x0044        // Raw interrupt status of port A
-#define GPIO_DEBOUNCE             0x0048        // Debounce enable register
-#define GPIO_PORTA_EOI            0x004C        // Port A clean interrupt register
-#define GPIO_EXT_PORTA            0x0050        // Port A external port register
-#define GPIO_LS_SYNC              0x0060        // Level_sensitive synchronization enable register
+#define GPIO_BASE_OFFSET              0xFF210000    
+#define GPIO_ADDRESS_WIDTH            0x00010000    // 64K
+#define GPIO_SWPORTA_DR               0x0000        // Port A data register 
+#define GPIO_SWPORTA_DDR              0x0004        // Port A data direction register
+#define GPIO_INTEN                    0x0030        // Interrupt enable register
+#define GPIO_INTMASK                  0x0034        // Interrupt mask register
+#define GPIO_INTTYPE_LEVEL            0x0038        // Interrupt level register
+#define GPIO_INT_POLARITY             0x003C        // Interrupt polarity register
+#define GPIO_INT_STATUS               0x0040        // Interrupt status of port A
+#define GPIO_INT_RAWSTATUS            0x0044        // Raw interrupt status of port A
+#define GPIO_DEBOUNCE                 0x0048        // Debounce enable register
+#define GPIO_PORTA_EOI                0x004C        // Port A clean interrupt register
+#define GPIO_EXT_PORTA                0x0050        // Port A external port register
+#define GPIO_LS_SYNC                  0x0060        // Level_sensitive synchronization enable register
+
+#define GRF_BASE 							        0xff100000
+#define GRF_RW_OFFSET           0x08
+
+// IOMUX
+#define GRF_GPIO0A_IOMUX              0x0000
+#define GRF_GPIO0B_IOMUX              0x0004
+#define GRF_GPIO0C_IOMUX              0x0008
+#define GRF_GPIO0D_IOMUX              0x000c
+
+#define GRF_GPIO1A_IOMUX              0x0010
+#define GRF_GPIO1B_IOMUX              0x0014
+#define GRF_GPIO1C_IOMUX              0x0018
+#define GRF_GPIO1D_IOMUX              0x001c
+
+#define GRF_GPIO2A_IOMUX			        0x0020
+#define GRF_GPIO2BL_IOMUX 			      0x0024
+#define GRF_GPIO2BH_IOMUX 			      0x0028
+#define GRF_GPIO2CL_IOMUX 			      0x002c
+#define GRF_GPIO2CH_IOMUX 			      0x0030
+#define GRF_GPIO2D_IOMUX			        0x0034
+
+#define GRF_GPIO3AL_IOMUX 			      0x0038
+#define GRF_GPIO3AH_IOMUX 			      0x003c
+#define GRF_GPIO3BL_IOMUX 			      0x0040
+#define GRF_GPIO3BH_IOMUX 			      0x0044
+#define GRF_GPIO3C_IOMUX			        0x0048
+#define GRF_GPIO3D_IOMUX			        0x004c
+
+// pullup pulldown
+#define GRF_NOPUPD                    0x0000
+#define GRF_PULLUP                    0x0001
+#define GRF_PULLDOWN                  0x0003
+#define GRF_GPIO0A_P                  0x0100
+#define GRF_GPIO0B_P                  0x0104
+#define GRF_GPIO0C_P                  0x0108
+#define GRF_GPIO0D_P                  0x010c
+#define GRF_GPIO1A_P                  0x0110
+#define GRF_GPIO1B_P                  0x0114
+#define GRF_GPIO1C_P                  0x0118
+#define GRF_GPIO1D_P                  0x011c
+#define GRF_GPIO2A_P                  0x0120
+#define GRF_GPIO2B_P                  0x0124
+#define GRF_GPIO2C_P                  0x0128
+#define GRF_GPIO2D_P                  0x012c
+#define GRF_GPIO3A_P                  0x0130
+#define GRF_GPIO3B_P                  0x0134
+#define GRF_GPIO3C_P                  0x0138
+#define GRF_GPIO3D_P                  0x013c
+
+#define CRU_BASE 							        0xff440000
+#define CRU_CLKGATE_CON16_OFFSET 			0x0240    //bit 7 8 9 10 9877
 
 // edge types for GPIO_LS_SYNC
 #define LEVEL_SENSITIVE 0
